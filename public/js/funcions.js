@@ -1,5 +1,7 @@
 const socket = io();
+console.log("funcions.js cargado");
 let nom = "";
+const missatges = document.getElementById("missatges");
 const formNom = document.getElementById("formNom");
 const inputNom = document.getElementById("name");
 const zonaXat = document.getElementById("zonaXat");
@@ -58,5 +60,9 @@ formMissatge.addEventListener("submit",(e)=>{
 });
 
  socket.on("chat:message", (datos) =>{
-        console.log("Mensaje: " , datos);
+        let div = document.createElement("div");
+        div.classList.add("missatge");
+        div.textContent = datos.nom + ": " + datos.text;
+        missatges.appendChild(div);
+        console.log("Mensaje: ", datos);
     });
