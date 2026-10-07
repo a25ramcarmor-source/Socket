@@ -1,0 +1,63 @@
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f2f2f2;
+}
+
+#contingut {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+}
+
+fieldset {
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+}
+
+input[type="text"],
+textarea {
+    padding: 8px;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+input[type="text"] {
+    width: 250px;
+}
+
+textarea {
+    width: 100%;
+    height: 100px;
+    resize: vertical;
+}
+
+input[type="submit"] {
+    padding: 8px 15px;
+    cursor: pointer;
+}
+
+#estat {
+    font-weight: bold;
+}
+
+.missatge{
+    padding: 20px;
+    border: 1px solid black;
+    border-radius: 10%;
+    margin-bottom: 7px;
+    border-color: rgb(183, 218, 183);
+    background-color: rgb(170, 199, 170);
+}
+#missatges{
+    height: 300px;
+    overflow-y: auto;
+    padding: 10px;
+}

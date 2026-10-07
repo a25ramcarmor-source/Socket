@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xat amb Socket.IO</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+
+    <div id="contingut">
+
+        <h1>Benvingut al xat</h1>
+
+        <!-- Entrada al xat -->
+        <fieldset>
+            <legend>
+                Introdueix el teu nom per començar a parlar:
+            </legend>
+
+            <form action="" id="formNom">
+
+                <label for="name">Nom d'Usuari:</label>
+
+                <input 
+                    type="text"
+                    maxlength="20"
+                    placeholder="Ex. Ramses"
+                    name="name"
+                    id="name"
+                    required
+                >
+
+                <br><br>
+
+                <input 
+                    type="submit"
+                    value="Entrar al Xat"
+                    id="subBtn"
+                >
+
+            </form>
+        </fieldset>
+
+
+        <!-- Zona del xat -->
+        <fieldset id="zonaXat">
+
+    <!-- CABECERA -->
+    <header id="capcalera">
+        <h2>Xat RCT</h2>
+
+        <p>
+            Usuari:
+            <span id="usuari">-</span>
+        </p>
+
+        <p id="estat">Desconnectat</p>
+    </header>
+
+
+    <!-- ZONA DE MISSATGES -->
+    <div id="missatges">
+
+        <div class="missatge">
+            <strong>Ramses</strong>
+            <span>09:30</span>
+            <p>Hola!</p>
+        </div>
+
+        <div class="missatge">
+            <strong>Marc</strong>
+            <span>09:31</span>
+            <p>Hola Ramses!</p>
+        </div>
+
+    </div>
+
+
+    <!-- FORMULARI PER ENVIAR -->
+    <form id="formMissatge">
+
+        <textarea 
+            id="missatge"
+            placeholder="Escriu un missatge..."
+            maxlength="500"
+        ></textarea>
+
+        <button type="submit">
+            Enviar Missatge
+        </button>
+
+    </form>
+
+</fieldset>
+
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="./js/funcions.js"></script>
+
+</body>
+</html>
