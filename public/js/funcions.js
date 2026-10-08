@@ -8,8 +8,27 @@ const zonaXat = document.getElementById("zonaXat");
 const usuari = document.getElementById("usuari");
 const formMissatge = document.getElementById("formMissatge");
 const inputMissatge = document.getElementById("missatge");
+const estat = document.getElementById("estat");
+const botoEnviar = formMissatge.querySelector('button[type="submit"]');
 // Al principio ocultamos el chat
 zonaXat.hidden = true;
+
+// Cuando Socket.IO se conecta
+socket.on("connect", () => {
+    estat.textContent = "Connectat";
+
+    // Solo permitir enviar si ya se ha introducido el nombre
+    botoEnviar.disabled = nom === "";
+});
+
+// Cuando Socket.IO se desconecta
+socket.on("disconnect", () => {
+    estat.textContent = "Desconnectat";
+    botoEnviar.disabled = true;
+
+    // No borramos inputMissatge.value:
+    // el texto escrito se conserva.
+});
 
 
 // Cuando se envía el formulario para entrar
@@ -38,6 +57,7 @@ formNom.addEventListener("submit", (e) => {
 
     // Mostramos la zona del chat
     zonaXat.hidden = false;
+    botoEnviar.disabled = !socket.connected;
 
     // Ocultamos el formulario de entrada
     formNom.parentElement.hidden = true;
@@ -45,24 +65,55 @@ formNom.addEventListener("submit", (e) => {
 
 
 //funcio del missaget
-formMissatge.addEventListener("submit",(e)=>{
+formMissatge.addEventListener("submit", (e) => {
     e.preventDefault();
     const text = inputMissatge.value.trim();
-    if(text == ""){
+    if (text == "") {
         return;
     }
 
-    socket.emit("chat:send",{
+    if (!socket.connected) {
+        estat.textContent = "Desconnectat";
+        botoEnviar.disabled = true;
+        return;
+    }
+
+    socket.emit("chat:send", {
         nom: nom,
         text: text
     });
-   
+
 });
 
- socket.on("chat:message", (datos) =>{
-        let div = document.createElement("div");
-        div.classList.add("missatge");
-        div.textContent = datos.nom + ": " + datos.text;
-        missatges.appendChild(div);
-        console.log("Mensaje: ", datos);
-    });
+socket.on("chat:message", (datos) => {
+
+    // Crear el contenedor del mensaje
+    const div = document.createElement("div");
+    div.classList.add("missatge");
+
+    // Crear la cabecera con el nombre y la hora
+    const capcalera = document.createElement("div");
+
+    const nomMissatge = document.createElement("strong");
+    nomMissatge.textContent = datos.nom;
+
+    const horaMissatge = document.createElement("small");
+    horaMissatge.textContent = " " + datos.hora;
+
+    capcalera.appendChild(nomMissatge);
+    capcalera.appendChild(horaMissatge);
+
+    // Crear el texto del mensaje
+    const contingut = document.createElement("p");
+    contingut.textContent = datos.text;
+
+    // Montar el mensaje completo
+    div.appendChild(capcalera);
+    div.appendChild(contingut);
+
+    // Añadirlo a la conversación
+    missatges.appendChild(div);
+
+    // Bajar automáticamente al último mensaje
+    missatges.scrollTop = missatges.scrollHeight;
+});
