@@ -162,6 +162,19 @@ input[type="submit"]:hover {
     align-self: flex-start;
     background-color: #ffffff;
 }
+#provaDesconnexio{
+    padding: 10px;
+    background-color: red;
+    color: black;
+    margin-bottom: 10px;
+    border-radius: 10%;
+
+}
+#provaDesconnexio:hover{
+    background-color: #e94200;
+    box-shadow: 0 4px 12px rgba(125, 58, 46, 0.35);
+    transform: translateY(-2px);
+}
 
 /* Adaptación para móviles */
 @media (max-width: 600px) {

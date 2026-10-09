@@ -1,4 +1,8 @@
-const socket = io();
+const socket = io({
+    reconnectionDelay: 10000,
+    reconnectionDelayMax: 10000,
+    randomizationFactor: 0
+});
 console.log("funcions.js cargado");
 let nom = "";
 const missatges = document.getElementById("missatges");
@@ -15,7 +19,15 @@ zonaXat.hidden = true;
 
 // Cuando Socket.IO se conecta
 socket.on("connect", () => {
-    estat.textContent = "Connectat";
+if (socket.recovered) {
+        estat.textContent = "Connectat — estat recuperat";
+        console.log("socket.recovered:", socket.recovered);
+        console.log("S'ha recuperat l'estat de la connexió.");
+    } else {
+        estat.textContent = "Connectat — sessió nova o estat no recuperat";
+        console.log("socket.recovered:", socket.recovered);
+        console.log("Sessió nova o no s'ha pogut recuperar l'estat.");
+    }
 
     // Solo permitir enviar si ya se ha introducido el nombre
     botoEnviar.disabled = nom === "";

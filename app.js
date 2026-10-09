@@ -17,16 +17,17 @@ const port = 3000;
 app.use(express.static('./public'));
 
 io.on("connection", (socket) => {
+
+     if (socket.recovered) {
+        console.log("Estado de la conexión recuperado correctamente");
+    } else {
+        console.log("Sesión nueva o estado no recuperado");
+    }
+
     console.log("Cliente conectado con ID:", socket.id);
 
     socket.on("chat:send", (datos) => {
         console.log("Datos recibidos:", datos);
-
-        if (socket.recovered) {
-            console.log("Conexión recuperada");
-        }else{
-             console.log("Nueva Conexion establecida");
-        }
 
         // 1. Comprobar que recibimos un objeto
         if (
