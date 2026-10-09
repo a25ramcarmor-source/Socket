@@ -5,7 +5,12 @@ const { Server } = require('socket.io');
 
 const app = express();
 const server = http.createServer(app);
-const io = new Server(server);
+const io = new Server(server, {
+    connectionStateRecovery: {
+        maxDisconnectionDuration: 2 * 60 * 1000,
+        skipMiddlewares: false
+    }
+});
 
 const port = 3000;
 
@@ -16,6 +21,12 @@ io.on("connection", (socket) => {
 
     socket.on("chat:send", (datos) => {
         console.log("Datos recibidos:", datos);
+
+        if (socket.recovered) {
+            console.log("Conexión recuperada");
+        }else{
+             console.log("Nueva Conexion establecida");
+        }
 
         // 1. Comprobar que recibimos un objeto
         if (

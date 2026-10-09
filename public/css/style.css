@@ -3,6 +3,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 20px;
+    overflow: hidden;
     background-color: #f2f2f2;
 }
 
@@ -53,6 +54,7 @@ textarea {
     box-shadow: 0 2px 8px rgba(46, 125, 50, 0.18);
     outline: none;
     transition: box-shadow 0.2s ease;
+    margin-top: 20px;
 }
 
 textarea:focus {
@@ -64,7 +66,7 @@ textarea:focus {
     flex: 0 0 120px;
     height: 50px;
     border: none;
-    border-radius: 8px;
+    border-radius: 100px;
     background-color: #425a46;
     color: white;
     font-weight: bold;
@@ -73,6 +75,7 @@ textarea:focus {
     transition: background-color 0.2s ease,
                 box-shadow 0.2s ease,
                 transform 0.2s ease;
+    margin-top: 20px;
 }
 
 #btn_enviar:hover {
@@ -115,7 +118,11 @@ input[type="submit"]:hover {
 /* Contenedor de mensajes */
 #missatges {
     height: 300px;
+    display: flex;
+    gap: 0.6rem;
+    flex-direction: column;
     overflow-y: auto;
+    flex: 1 1 auto;
     padding: 10px;
     border: 1px solid #d6e4d8;
     border-radius: 8px;
@@ -133,6 +140,7 @@ input[type="submit"]:hover {
     overflow-wrap: anywhere;
 }
 
+
 .missatge strong {
     color: #354d39;
 }
@@ -144,6 +152,15 @@ input[type="submit"]:hover {
 
 .missatge p {
     margin-bottom: 0;
+}
+.missatge_enviat  {
+    align-self: flex-end;
+    background-color: #d0e8d2;
+}
+
+.misatge_rebut {
+    align-self: flex-start;
+    background-color: #ffffff;
 }
 
 /* Adaptación para móviles */

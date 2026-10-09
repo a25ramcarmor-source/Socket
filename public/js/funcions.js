@@ -91,6 +91,13 @@ socket.on("chat:message", (datos) => {
     const div = document.createElement("div");
     div.classList.add("missatge");
 
+    //Direccio del missat
+    if(datos.nom == nom){
+        div.classList.add("missatge_enviat");
+    }else{
+        div.classList.add("misatge_rebut");
+    }
+
     // Crear la cabecera con el nombre y la hora
     const capcalera = document.createElement("div");
 
